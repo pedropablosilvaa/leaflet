@@ -1,0 +1,110 @@
+<html>
+<head>
+	
+	<title>El terrible mapa y que paza</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="shortcut icon" href="">
+
+	<link href = "https://cdn.jsdelivr.net/npm/leaflet-extra-markers@1.0.6/dist/css/leaflet.extra-markers.min.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+
+
+	
+</head>
+<body>
+
+
+
+<div id="mapid" style="width: 600px; height: 400px;"></div>
+<script>
+
+	
+
+	var PuntosgeoJSON = {
+						"type": "FeatureCollection",
+						"name": "pts_usach1",
+						"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+						"features": [
+						{ "type": "Feature", "properties": { "id": 1, "Nombre": "Geo usach" }, "geometry": { "type": "Point", "coordinates": [ -70.68234248269188, -33.450274911858806 ] } },
+						{ "type": "Feature", "properties": { "id": 2, "Nombre": "Forito" }, "geometry": { "type": "Point", "coordinates": [ -70.682846065500357, -33.44815722100995 ] } },
+						{ "type": "Feature", "properties": { "id": 3, "Nombre": "cenicero" }, "geometry": { "type": "Point", "coordinates": [ -70.681865757633233, -33.449003183080222 ] } },
+						{ "type": "Feature", "properties": { "id": 4, "Nombre": "Biblioteca" }, "geometry": { "type": "Point", "coordinates": [ -70.685108830919688, -33.447910713953583 ] } },
+						{ "type": "Feature", "properties": { "id": 5, "Nombre": "Pizzas" }, "geometry": { "type": "Point", "coordinates": [ -70.683618225806654, -33.450969592831662 ] } },
+						{ "type": "Feature", "properties": { "id": 6, "Nombre": "citiaps" }, "geometry": { "type": "Point", "coordinates": [ -70.687089589966305, -33.449630646305899 ] } }
+						]
+						};
+
+
+	var LugaresgeoJSON = {
+						"type": "FeatureCollection",
+						"name": "Lugares_usach",
+						"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+						"features": [
+						{ "type": "Feature", "properties": { "id": 1, "Lugares": "Informatica" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -70.687560519455317, -33.449608071271115 ], [ -70.686946317761326, -33.449623839640118 ], [ -70.686946317761326, -33.450037758301086 ], [ -70.687168375296835, -33.450029874154573 ], [ -70.687149476783176, -33.449777581087652 ], [ -70.687565244083729, -33.449781523172469 ], [ -70.687560519455317, -33.449608071271115 ] ] ] ] } },
+						{ "type": "Feature", "properties": { "id": 2, "Lugares": "Geografica" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -70.682689427559112, -33.449761812746601 ], [ -70.681976008668386, -33.449785465257108 ], [ -70.681980733296797, -33.450443790877706 ], [ -70.68270832607277, -33.450420138546747 ], [ -70.682689427559112, -33.449761812746601 ] ] ] ] } },
+						{ "type": "Feature", "properties": { "id": 3, "Lugares": "Fac Humanidades" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -70.682963456007201, -33.448531873311964 ], [ -70.683067397832332, -33.448523989028565 ], [ -70.682991803777696, -33.447920839223421 ], [ -70.682920934351458, -33.447916897054036 ], [ -70.682963456007201, -33.448531873311964 ] ] ] ] } },
+						{ "type": "Feature", "properties": { "id": 4, "Lugares": "Quimica y Biologia" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -70.681314560690254, -33.447901128374703 ], [ -70.681078329269482, -33.447912954884472 ], [ -70.681120850925225, -33.448441204009519 ], [ -70.681338183832324, -33.448413608985625 ], [ -70.681314560690254, -33.447901128374703 ] ] ] ] } },
+						{ "type": "Feature", "properties": { "id": 5, "Lugares": "Jaula" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -70.684253279564587, -33.448535815453404 ], [ -70.684031222029063, -33.448547641876623 ], [ -70.684078468313217, -33.448902433823619 ], [ -70.684267453449834, -33.448886665323457 ], [ -70.684253279564587, -33.448535815453404 ] ] ] ] } },
+						{ "type": "Feature", "properties": { "id": 6, "Lugares": "Rectoria" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -70.683270556854197, -33.448851186187625 ], [ -70.682358703570046, -33.448902433823619 ], [ -70.682349254313209, -33.448973392038866 ], [ -70.683280006111033, -33.448953681429337 ], [ -70.683270556854197, -33.448851186187625 ] ] ] ] } },
+						{ "type": "Feature", "properties": { "id": 7, "Lugares": "Centro Medico" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -70.68424383030775, -33.449608071271115 ], [ -70.683643802499006, -33.449615955455975 ], [ -70.683676874897913, -33.449903727712851 ], [ -70.684276902706657, -33.449856422749903 ], [ -70.68424383030775, -33.449608071271115 ] ] ] ] } }
+						]
+						};
+	function onEachFeatureL(feature, layer) {
+    	if (feature.properties && feature.properties.Lugares) {
+        	layer.bindPopup(feature.properties.Lugares);
+    	}
+	}
+
+	function onEachFeatureP(feature, layer) {
+    	if (feature.properties && feature.properties.Nombre) {
+        	layer.bindPopup(feature.properties.Nombre);
+    	}
+	}
+
+
+
+	var layers = L.layerGroup();
+	var PuntosUsach = L.geoJSON(PuntosgeoJSON, {
+						onEachFeature: onEachFeatureP
+						}).addTo(layers);
+
+	var LugaresUsach = L.geoJSON(LugaresgeoJSON, {
+						onEachFeature: onEachFeatureL
+						}).addTo(layers);
+
+	var gray = L.layerGroup();
+
+	var satelital = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'}).addTo(gray);
+
+	var mymap = L.map('mapid',{
+		center: [-33.4495981,-70.6848129],
+		zoom: 16,
+		layers: [gray,layers]
+	});
+
+
+	var bmap = {
+		'Satelite': satelital,
+		'Streetx': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>contributors'})
+	};
+
+
+  	var overlays = {
+  		 'Puntos': PuntosUsach,
+  		 'Lugares': LugaresUsach
+  	};
+
+  	var lcontrol = L.control.layers(bmap, overlays
+  		).addTo(mymap);
+
+
+</script>
+
+
+</body>
+</html>
